@@ -1,12 +1,11 @@
-
-        body {
+body {
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
             margin: 0;
             padding: 0;
         }
 
-        .login-container {
+        .register-container {
             max-width: 400px;
             margin: 50px auto;
             padding: 20px;
@@ -56,7 +55,7 @@
             margin-top: 5px;
         }
 
-        .login-btn {
+        .register-btn {
             width: 100%;
             padding: 12px;
             background-color: #4CAF50;
@@ -68,27 +67,27 @@
             transition: background-color 0.3s;
         }
 
-        .login-btn:hover {
+        .register-btn:hover {
             background-color: #45a049;
         }
 
-        .login-btn:disabled {
+        .register-btn:disabled {
             background-color: #cccccc;
             cursor: not-allowed;
         }
 
-        .register-link {
+        .login-link {
             text-align: center;
             margin-top: 20px;
             color: #666;
         }
 
-        .register-link a {
+        .login-link a {
             color: #4CAF50;
             text-decoration: none;
         }
 
-        .register-link a:hover {
+        .login-link a:hover {
             text-decoration: underline;
         }
 
@@ -106,6 +105,17 @@
         .alert-danger {
             background-color: #f2dede;
             color: #a94442;
+        }
+
+        .role-selector {
+            margin-bottom: 15px;
+        }
+
+        .role-selector label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
         }
 
         #scrollToTopBtn {
@@ -126,6 +136,6 @@
             display: none;
         }
 
-        #scrollToTopBtn:hover {
+       #scrollToTopBtn:hover {
             background-color: #45a049;
         }
