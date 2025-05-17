@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кошик</title>
+    <link rel="stylesheet" href="../cart/cart.css"> 
+    <link rel="stylesheet" href="../header/header.css"> 
+    <link rel="stylesheet" href="../news/news.css"> 
+
+
+</head>
+<body>
+    <div id="header">
+        <div class="logo">
+            <img src="" alt="">
+        </div>
+        <div class="products">
+            <span><a href="/lab2/index.html">Products </a></span>
+        </div>
+        <div class="news">
+            <span><a href="/lab2/news/news.html">News</a></span>
+        </div>
+        <div class="log-in"><span><a href="/lab2/login/login.html">Log in</a></span></div>
+        <div class="cart">
+            <a href="/lab2/cart/cart.html">
+                <img src="../img/—Pngtree—shopping cart convenient icon_4637407.png" alt="Cart Icon">
+            </a>
+            <span id="cart-count">0</span> 
+        </div>
+      
+    </div>
+   
+
+    <div id="filters">
+        <label for="sort">Сортувати за:</label>
+        <select id="sort">
+            <option value="default">Без сортування</option>
+            <option value="name-asc">Назва (А → Я)</option>
+            <option value="price-asc">Ціна (↑)</option>
+            <option value="price-desc">Ціна (↓)</option>
+        </select>
+    
+        <label for="min-price">Ціна від:</label>
+        <input type="number" id="min-price" min="0" />
+    
+        <label for="max-price">до:</label>
+        <input type="number" id="max-price" min="0" />
+    
+        <button id="apply-filters">Застосувати</button>
+    </div>
+    
+
+    <h3>Ваш кошик:</h3>
+    <div id="shopping-cart">
+        
+    </div>
+
+    <button onclick="window.history.back()">Повернутися до магазину</button>
+
+  
+
+    <select id="chart-type">
+        <option value="pie">Кругова діаграма</option>
+        <option value="bar">Гістограма</option>
+        <option value="line">Лінійний графік</option>
+    </select>
+    <button id="apply-chart-type">Застосувати</button>
+    <canvas id="chart-container" width="400" height="200"></canvas>
+    
+    <div style="display: flex; justify-content: center; align-items: center;">
+        <button class="button">Оформити замовлення</button>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="cart.js"></script> 
+    <script src="../constans/catalog.js"></script>
+    
+</body>
+</html>

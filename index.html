@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="header/header.css">
+</head>
+<button id="scrollToTopBtn" title="До верху">↑</button>
+<script>
+    const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 300) {
+            scrollToTopBtn.style.display = "block";
+        } else {
+            scrollToTopBtn.style.display = "none";
+        }
+    });
+
+    scrollToTopBtn.addEventListener("click", () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+</script>
+
+<body>
+
+    <div id="header">
+        <div class="logo">
+            <img src="" alt="">
+        </div>
+        <div class="products">
+            <span><a href="../lab2/index.html">Products </a></span>
+        </div>
+        <div class="news">
+            <span><a href="../lab2/news/news.html">News</a></span>
+        </div>
+        <div class="log-in"><span><a href="../lab2/login/login.html">Log in</a></span></div>
+        <div class="cart">
+            <a href="../lab2/cart/cart.html">
+                <img src="../lab2/img/—Pngtree—shopping cart convenient icon_4637407.png" alt="Cart Icon">
+            </a>
+            <span id="cart-count">0</span> 
+        </div>
+    </div>
+  
+ 
+    <div class="dropdown">
+       <div class="select">
+        <span class="selected">All</span>
+        <div class="caret"></div>
+       </div>
+       <ul class="menu">
+        <li class="active">All</li>
+       </ul>
+    </div>    
+
+    <div id="products"></div>
+    
+    
+    <button class="btn-more">Load More</button>
+
+    <div id="subscription-modal" class="subscription-modal">
+        <div class="subscription-content">
+            <p>Підпишіться на повідомлення з нашого сайту!</p>
+            <button id="accept-btn">Прийняти</button>
+            <button id="decline-btn">Відхилити</button>
+        </div>
+    </div>
+    
+    <div id="thank-you-message" class="thank-you-message hidden">
+        <p>Дякуємо за підписку!</p>
+    </div>
+    
+      
+      <div id="advertisement">
+        <span>Це рекламне повідомлення.</span>
+        <button id="close-btn">Закрити</button>
+        <span id="timer">10</span>
+    </div>
+    
+  
+
+    <script src = "../lab2/constans/catalog.js"></script>
+
+    <script src = "../lab2/constans/root.js"></script>
+
+    
+    
+    <script src = "../lab2/header/header.js"></script>
+    <link rel="stylesheet" href="../lab2/header/header.css">
+
+    
+    <script src = "../lab2/products/products.js"></script>
+    <link rel="stylesheet" href="../lab2/products/products.css">
+
+    
+</body>
+</html>
