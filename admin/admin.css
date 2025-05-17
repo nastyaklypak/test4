@@ -1,0 +1,58 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: #f2f2f2;
+}
+
+.admin-form {
+  max-width: 500px;
+  margin: auto;
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.admin-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background-color:  #007bff;
+  color: white;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #007bff;
+}
+
+.success {
+  color: green;
+  margin-top: 10px;
+  text-align: center;
+  font-weight: bold;
+}

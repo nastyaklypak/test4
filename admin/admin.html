@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Додати товар - Admin</title>
+  <link rel="stylesheet" href="../index.css">
+  <link rel="stylesheet" href="../header/header.css">
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body>
+
+  <div id="header">
+    <div class="logo">
+      <img src="" alt="">
+    </div>
+    <div class="products">
+      <span><a href="../index.html">Products</a></span>
+    </div>
+    <div class="news">
+      <span><a href="../news/news.html">News</a></span>
+    </div>
+    <div class="add-product" style="display: none;">
+      <span><a href="../admin/admin.html">Додати товари</a></span>
+    </div>
+    <div class="log-in"><span><a href="../login/login.html">Log in</a></span></div>
+    <div class="cart">
+      <a href="../cart/cart.html">
+        <img src="../img/—Pngtree—shopping cart convenient icon_4637407.png" alt="Cart Icon">
+      </a>
+      <span id="cart-count">0</span> 
+    </div>
+  </div>
+
+  <div class="admin-form">
+    <h2>Додати новий товар</h2>
+    <form id="addProductForm">
+      <div class="form-group">
+        <label for="name">Назва (тип):</label>
+        <input type="text" id="name" name="name" required placeholder="ring, necklace тощо" />
+      </div>
+
+      <div class="form-group">
+        <label for="img">URL зображення:</label>
+        <input type="text" id="img" name="img" required />
+      </div>
+
+      <div class="form-group">
+        <label for="price">Ціна (наприклад 800$):</label>
+        <input type="text" id="price" name="price" required />
+      </div>
+
+      <div class="form-group">
+        <label for="category">Категорія:</label>
+        <select id="category" name="category" required>
+          <option value="rings">rings</option>
+          <option value="necklaces">necklaces</option>
+          <option value="bracelets">bracelets</option>
+          <option value="earrings">earrings</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Опис:</label>
+        <textarea id="description" name="description" rows="3" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="stock">Кількість на складі:</label>
+        <input type="number" id="stock" name="stock" required min="1" />
+      </div>
+
+      <button type="submit">Додати товар</button>
+      <div id="successMessage" class="success"></div>
+    </form>
+  </div>
+
+  
+
+  <script src="admin.js"></script>
+</body>
+</html>

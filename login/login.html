@@ -7,20 +7,21 @@
     <link rel="stylesheet" href="../index.css">
     <link rel="stylesheet" href="login.css">
     <link rel="stylesheet" href="../header/header.css">
-
 </head>
 <body>
-    <button id="scrollToTopBtn" title="До верху">↑</button>
 
     <div id="header">
         <div class="logo">
             <img src="" alt="">
         </div>
         <div class="products">
-            <span><a href="../index.html">Products </a></span>
+            <span><a href="../index.html">Products</a></span>
         </div>
         <div class="news">
             <span><a href="../news/news.html">News</a></span>
+        </div>
+        <div class="add-product" style="display: none;">
+            <span><a href="../admin/admin.html">Додати товари</a></span>
         </div>
         <div class="log-in"><span><a href="login.html">Log in</a></span></div>
         <div class="cart">
@@ -51,34 +52,13 @@
     </div>
 
     <script>
-        // Скрипт для кнопки прокрутки до верху
-        const scrollToTopBtn = document.getElementById("scrollToTopBtn");
-
-        window.addEventListener("scroll", () => {
-            if (window.scrollY > 300) {
-                scrollToTopBtn.style.display = "block";
-            } else {
-                scrollToTopBtn.style.display = "none";
-            }
-        });
-
-        scrollToTopBtn.addEventListener("click", () => {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-        });
-
-        // Оновлення лічильника кошика
         function updateCartCount() {
             const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
             document.getElementById('cart-count').textContent = cartItems.length;
         }
-        
-        // Викликаємо функцію при завантаженні сторінки
+
         window.addEventListener('load', updateCartCount);
 
-        // Функція для показу сповіщення
         function showAlert(message, type) {
             const alertContainer = document.getElementById('alert-container');
             const alert = document.createElement('div');
@@ -88,13 +68,11 @@
             alertContainer.innerHTML = '';
             alertContainer.appendChild(alert);
             
-            // Видаляємо сповіщення через 5 секунд
             setTimeout(() => {
                 alert.remove();
             }, 5000);
         }
 
-        // Функція для відображення помилки валідації
         function showValidationError(fieldName, message) {
             const input = document.querySelector(`input[name="${fieldName}"]`);
             if (!input) return;
@@ -111,7 +89,6 @@
             errorElem.textContent = message;
         }
 
-        // Функція для очищення помилок валідації
         function clearValidationErrors() {
             document.querySelectorAll('.error-message').forEach(el => el.remove());
             document.querySelectorAll('.input-error').forEach(input => {
@@ -119,7 +96,6 @@
             });
         }
 
-        // Обробка відправки форми входу
         document.getElementById('login-form').addEventListener('submit', async function(event) {
             event.preventDefault();
             
@@ -129,46 +105,40 @@
             clearValidationErrors();
             
             let isValid = true;
-            
-            // Валідація логіну
             if (!loginInput) {
                 showValidationError('login', 'Логін обов\'язковий');
                 isValid = false;
             }
-            
-            // Валідація пароля
             if (!passwordInput) {
                 showValidationError('password', 'Пароль обов\'язковий');
                 isValid = false;
             }
-            
             if (!isValid) return;
-            
+
             const submitButton = this.querySelector('button[type="submit"]');
             submitButton.disabled = true;
             submitButton.textContent = 'Зачекайте...';
-            
+
             const url = 'https://chnu-student-interview-preparation.netlify.app/.netlify/functions/userLogin';
-            
+
             try {
                 const response = await fetch(url, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ username: loginInput, password: passwordInput }),
                 });
-                
+
                 if (!response.ok) {
                     throw new Error('Невірний логін або пароль');
                 }
-                
+
                 const data = await response.json();
                 localStorage.setItem('token', data.token);
                 localStorage.setItem('role', data.role);
                 localStorage.setItem('username', loginInput);
-                
+
                 showAlert('Вхід успішний!', 'success');
-                
-                // Перенаправляємо користувача після короткої затримки
+
                 setTimeout(() => {
                     window.location.href = '../index.html';
                 }, 1000);
@@ -181,16 +151,22 @@
             }
         });
 
-        // Перевірка статусу авторизації
         function checkAuthStatus() {
             const token = localStorage.getItem('token');
             const username = localStorage.getItem('username');
+            const role = localStorage.getItem('role');
             
             if (token && username) {
                 const loginElement = document.querySelector('.log-in span');
                 loginElement.innerHTML = `<a href="#" id="logout-link">${username} (Вийти)</a>`;
-                
-                // Додавання обробника для виходу
+
+                if (role === 'admin') {
+                    const addProductLink = document.querySelector('.add-product');
+                    if (addProductLink) {
+                        addProductLink.style.display = 'inline-block';
+                    }
+                }
+
                 document.getElementById('logout-link').addEventListener('click', function(e) {
                     e.preventDefault();
                     localStorage.removeItem('token');
@@ -200,8 +176,7 @@
                 });
             }
         }
-        
-        // Перевіряємо статус авторизації при завантаженні сторінки
+
         window.addEventListener('load', checkAuthStatus);
     </script>
 </body>
