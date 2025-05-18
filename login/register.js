@@ -1,4 +1,4 @@
- function updateCartCount() {
+function updateCartCount() {
             const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
             document.getElementById('cart-count').textContent = cartItems.length;
         }
@@ -33,6 +33,11 @@
             }
 
             errorElem.textContent = message;
+            
+         
+            if (!document.querySelector('.input-error:not(' + fieldName + ')')) {
+                input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
         }
 
         function clearValidationErrors() {
@@ -40,6 +45,23 @@
             document.querySelectorAll('.input-error').forEach(input => {
                 input.classList.remove('input-error');
             });
+        }
+
+        function validatePassword(password) {
+    
+            const hasLetter = /[a-zA-Zа-яА-ЯіІїЇєЄ]/.test(password);
+            
+            const hasDigit = /\d/.test(password);
+            
+           
+            const hasSpecialChar = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password);
+            
+            return {
+                isValid: hasLetter && hasDigit && hasSpecialChar,
+                hasLetter,
+                hasDigit,
+                hasSpecialChar
+            };
         }
 
         document.getElementById('register-form').addEventListener('submit', async function(event) {
@@ -53,29 +75,64 @@
             clearValidationErrors();
 
             let isValid = true;
+            let validationErrors = [];
 
+      
             if (!usernameInput) {
                 showValidationError('username', 'Логін обов\'язковий');
+                validationErrors.push('Відсутній логін');
                 isValid = false;
             } else if (usernameInput.length < 3) {
                 showValidationError('username', 'Логін повинен містити не менше 3 символів');
+                validationErrors.push('Логін занадто короткий');
                 isValid = false;
             }
 
+        
             if (!passwordInput) {
                 showValidationError('password', 'Пароль обов\'язковий');
+                validationErrors.push('Відсутній пароль');
                 isValid = false;
             } else if (passwordInput.length < 4) {
                 showValidationError('password', 'Пароль повинен містити не менше 4 символів');
+                validationErrors.push('Пароль занадто короткий');
                 isValid = false;
+            } else {
+              
+                const passwordValidation = validatePassword(passwordInput);
+                if (!passwordValidation.isValid) {
+                    let errorMessages = [];
+                    if (!passwordValidation.hasLetter) errorMessages.push('літери');
+                    if (!passwordValidation.hasDigit) errorMessages.push('цифри');
+                    if (!passwordValidation.hasSpecialChar) errorMessages.push('спеціальні символи (!@#$%^&*()_+-=[]{};\':"\\|,.<>/?)');
+                    
+                    let errorMsg = 'Пароль повинен містити: ' + errorMessages.join(', ');
+                    
+                    showValidationError('password', errorMsg);
+                    validationErrors.push('Пароль не відповідає вимогам безпеки');
+                    isValid = false;
+                    
+                   
+                    const passwordHint = document.getElementById('password-requirements');
+                    if (passwordHint) {
+                        passwordHint.classList.add('highlighted');
+                        setTimeout(() => passwordHint.classList.remove('highlighted'), 3000);
+                    }
+                }
             }
+
 
             if (passwordInput !== confirmPasswordInput) {
-                showValidationError('confirm-password', 'Паролі не співпадають');
+                showValidationError('confirm-password', 'Паролі не співпадають. Будь ласка, введіть однакові паролі в обох полях.');
+                validationErrors.push('Паролі не співпадають');
                 isValid = false;
             }
 
-            if (!isValid) return;
+            if (!isValid) {
+               
+                showAlert('Форма містить помилки: ' + validationErrors.join(', '), 'danger');
+                return;
+            }
 
             const submitButton = this.querySelector('button[type="submit"]');
             submitButton.disabled = true;
