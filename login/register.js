@@ -64,10 +64,16 @@ function updateCartCount() {
             };
         }
 
+        function validateEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
         document.getElementById('register-form').addEventListener('submit', async function(event) {
             event.preventDefault();
 
             const usernameInput = this.username.value.trim();
+            const emailInput = this.email.value.trim();
             const passwordInput = this.password.value.trim();
             const confirmPasswordInput = document.getElementById('confirm-password').value.trim();
             const roleInput = this.role.value;
@@ -88,6 +94,16 @@ function updateCartCount() {
                 isValid = false;
             }
 
+            
+            if (!emailInput) {
+                showValidationError('email', 'Email обов\'язковий');
+                validationErrors.push('Відсутній email');
+                isValid = false;
+            } else if (!validateEmail(emailInput)) {
+                showValidationError('email', 'Введіть дійсну email адресу');
+                validationErrors.push('Невірний формат email');
+                isValid = false;
+            }
         
             if (!passwordInput) {
                 showValidationError('password', 'Пароль обов\'язковий');
@@ -146,6 +162,7 @@ function updateCartCount() {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         username: usernameInput,
+                        email: emailInput,
                         password: passwordInput,
                         role: roleInput
                     }),
